@@ -1,9 +1,10 @@
 "use client"
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { dummyMeetings } from '@/lib/dummyData';
 import type { Meeting } from '@/lib/dummyData';
 import Sidebar from '@/components/Sidebar';
+import AudioPlayer from '@/components/AudioPlayer';
 import { 
   IconChevronRight, 
   IconVideo,
@@ -20,6 +21,24 @@ const MeetingDetailPage = () => {
   const [meeting, setMeeting] = useState<Meeting | null>(null);
   const [activeTab, setActiveTab] = useState('overview');
   const [sidebarHovered, setSidebarHovered] = useState(false);
+  // Resizable split state
+  const [leftWidth, setLeftWidth] = useState(60); // percentage
+  const isDraggingRef = useRef(false);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+
+  const onMouseDownDivider = () => {
+    isDraggingRef.current = true;
+  };
+  const onMouseUp = () => {
+    isDraggingRef.current = false;
+  };
+  const onMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!isDraggingRef.current || !containerRef.current) return;
+    const rect = containerRef.current.getBoundingClientRect();
+    const x = e.clientX - rect.left; // px from left
+    const pct = Math.min(80, Math.max(30, (x / rect.width) * 100));
+    setLeftWidth(pct);
+  };
 
   useEffect(() => {
     const foundMeeting = dummyMeetings.find(m => m.id === params.id);
@@ -43,7 +62,7 @@ const MeetingDetailPage = () => {
   }
 
   return (
-    <div className="flex h-screen bg-white overflow-hidden">
+    <div className="flex h-screen bg-white overflow-hidden" onMouseMove={onMouseMove} onMouseUp={onMouseUp}>
       {/* Main Content Area - Full width since sidebar is hidden */}
       <div className="flex-1 flex flex-col">
         {/* Top Header with Breadcrumb */}
@@ -122,9 +141,6 @@ const MeetingDetailPage = () => {
                 <span>Video</span>
               </button>
               <button className="p-2 text-gray-600 hover:text-gray-900 rounded hover:bg-gray-100 transition-colors">
-                <IconSearch size={18} />
-              </button>
-              <button className="p-2 text-gray-600 hover:text-gray-900 rounded hover:bg-gray-100 transition-colors">
                 <IconDownload size={18} />
               </button>
               <button className="p-2 text-gray-600 hover:text-gray-900 rounded hover:bg-gray-100 transition-colors">
@@ -138,14 +154,14 @@ const MeetingDetailPage = () => {
         </div>
 
         {/* Two Column Layout - 60/40 Split */}
-        <div className="flex-1 flex overflow-hidden bg-gray-50">
+        <div ref={containerRef} className="flex-1 flex overflow-hidden bg-gray-50 relative">
           {/* Left Column - Overview/Outline (60%) */}
-          <div className="w-[60%] bg-white flex flex-col">
+          <div className={`bg-white flex flex-col`} style={{ width: `${leftWidth}%` }}>
             {/* Navigation Tabs */}
             <div className="h-16 flex bg-white border-b border-gray-200">
               <button 
                 onClick={() => setActiveTab('overview')}
-                className={`flex items-center space-x-2 px-6 h-full text-sm font-medium transition-all duration-200 border-b-2 ${
+                className={`flex items-center space-x-2 px-6 h-full text-sm font-medium transition-all duration-200 border-b-2 cursor-pointer ${
                   activeTab === 'overview' 
                     ? 'text-blue-600 border-blue-500 bg-white' 
                     : 'text-gray-600 hover:text-gray-900 border-transparent hover:bg-gray-50'
@@ -158,7 +174,7 @@ const MeetingDetailPage = () => {
               </button>
               <button 
                 onClick={() => setActiveTab('outline')}
-                className={`px-6 h-full text-sm font-medium transition-all duration-200 border-b-2 ${
+                className={`px-6 h-full text-sm font-medium transition-all duration-200 border-b-2 cursor-pointer ${
                   activeTab === 'outline' 
                     ? 'text-blue-600 border-blue-500 bg-white' 
                     : 'text-gray-600 hover:text-gray-900 border-transparent hover:bg-gray-50'
@@ -233,16 +249,21 @@ const MeetingDetailPage = () => {
             </div>
           </div>
 
+          {/* Draggable Divider */}
+          <div
+            onMouseDown={onMouseDownDivider}
+            className="w-1 cursor-col-resize bg-gray-200 hover:bg-blue-300 transition-colors"
+            aria-label="Resize panel"
+            role="separator"
+          />
+
           {/* Right Column - Transcript (40%) */}
-          <div className="w-[40%] bg-white flex flex-col border-l border-gray-200">
+          <div className="bg-white flex flex-col border-l border-gray-200" style={{ width: `${100 - leftWidth}%` }}>
             {/* Tab Headers */}
             <div className="h-16 flex items-center justify-between bg-white border-b border-gray-200 px-6">
               <div className="flex items-center space-x-8 h-full">
-                <button className="flex items-center space-x-2 text-sm font-medium text-blue-600 h-full border-b-2 border-blue-500">
+                <button className="flex items-center space-x-2 text-sm font-medium text-blue-600 h-full border-b-2 border-blue-500 cursor-pointer">
                   <span>Transcript</span>
-                </button>
-                <button className="text-sm font-medium text-gray-600 hover:text-gray-900 h-full flex items-center transition-colors">
-                  AskFred
                 </button>
               </div>
               
@@ -260,23 +281,29 @@ const MeetingDetailPage = () => {
 
             {/* Transcript Content */}
             <div className="flex-1 overflow-auto bg-white">
-              {meeting.transcript ? (
-                <div className="p-6">
-                  <div className="space-y-6">
-                    <div className="flex items-start space-x-4">
-                      <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 text-white rounded-full flex items-center justify-center text-sm font-semibold flex-shrink-0 shadow-sm">
-                        K
+              {meeting.transcriptSegments && meeting.transcriptSegments.length > 0 ? (
+                <div className="p-6 space-y-6">
+                  {meeting.transcriptSegments.map((seg) => (
+                    <div key={seg.id} className="flex items-start space-x-4">
+                      <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-green-600 text-white rounded-full flex items-center justify-center text-xs font-semibold flex-shrink-0 shadow-sm">
+                        {seg.speaker.charAt(0)}
                       </div>
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center space-x-3 mb-3">
-                          <span className="text-sm font-semibold text-green-600">Krish Ramineni</span>
-                          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">00:00</span>
+                        <div className="flex items-center space-x-3 mb-2">
+                          <span className="text-sm font-semibold text-green-600">{seg.speaker}</span>
+                          <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">{seg.timestamp}</span>
                         </div>
                         <div className="text-sm text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg border-l-3 border-green-400">
-                          {meeting.transcript}
+                          {seg.text}
                         </div>
                       </div>
                     </div>
+                  ))}
+                </div>
+              ) : meeting.transcript ? (
+                <div className="p-6">
+                  <div className="text-sm text-gray-700 leading-relaxed bg-gray-50 p-4 rounded-lg">
+                    {meeting.transcript}
                   </div>
                 </div>
               ) : (
@@ -308,15 +335,15 @@ const MeetingDetailPage = () => {
             <Sidebar />
           </div>
         </div>
+      )} 
+      {/* Sidebar only opens from hamburger hover now */}
+      {/* Bottom Floating Player */}
+      {meeting?.audioUrl && (
+        <AudioPlayer src={meeting.audioUrl} title={meeting.title} />
       )}
-      
-      {/* Invisible hover trigger area */}
-      <div 
-        className="fixed left-0 top-0 w-8 h-full z-40"
-        onMouseEnter={() => setSidebarHovered(true)}
-      />
     </div>
   );
 };
 
 export default MeetingDetailPage;
+

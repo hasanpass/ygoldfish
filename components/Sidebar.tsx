@@ -8,8 +8,6 @@ import {
   IconChartBar,
   IconUpload,
   IconStar,
-  IconShield,
-  IconHelp,
   IconDatabase
 } from '@tabler/icons-react';
 import { useRouter, usePathname } from 'next/navigation';
@@ -52,7 +50,7 @@ const Sidebar = () => {
         {navigationItems.map((item, index) => (
           <button
             key={index}
-            className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 relative ${
+            className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 relative cursor-pointer ${
               item.active
                 ? 'bg-blue-600 text-white shadow-lg'
                 : 'text-gray-300 hover:text-white hover:bg-slate-600/70'
@@ -74,24 +72,12 @@ const Sidebar = () => {
         {bottomItems.map((item, index) => (
           <button
             key={index}
-            className="flex items-center space-x-3 px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200"
+            className="flex items-center space-x-3 px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200 cursor-pointer"
           >
             <item.icon size={20} />
             <span className="text-sm font-medium">{item.label}</span>
           </button>
         ))}
-      </div>
-
-      {/* Referral Badge */}
-      <div className="px-4">
-        <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-4 text-center shadow-lg">
-          <div className="text-white text-lg mb-1">🎯🎊</div>
-          <div className="text-white text-sm font-bold mb-2">Refer and get $5</div>
-          <div className="text-white text-xs mb-3 leading-relaxed">Get $5 when someone signs up using your referral link</div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold w-full transition-colors shadow-sm">
-            Refer
-          </button>
-        </div>
       </div>
     </div>
   );

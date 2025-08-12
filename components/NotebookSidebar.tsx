@@ -44,9 +44,6 @@ const NotebookSidebar = ({ activeSection = 'my-meetings', onSectionChange }: Not
       {/* Header */}
       <div className="p-4 border-b border-gray-600">
         <div className="flex items-center space-x-3">
-          <div className="w-8 h-8 bg-gradient-to-br from-pink-500 to-purple-600 rounded-lg flex items-center justify-center">
-            <span className="text-white font-bold text-sm">📓</span>
-          </div>
           <span className="text-white font-bold text-xl">Notebook</span>
         </div>
       </div>
@@ -78,7 +75,7 @@ const NotebookSidebar = ({ activeSection = 'my-meetings', onSectionChange }: Not
             </h3>
             <button 
               onClick={() => setExpandedChannels(!expandedChannels)}
-              className="text-gray-400 hover:text-white transition-colors"
+              className="text-gray-400 hover:text-white transition-colors cursor-pointer"
             >
               <IconPlus size={16} className={`transform transition-transform ${expandedChannels ? 'rotate-45' : ''}`} />
             </button>
@@ -89,7 +86,7 @@ const NotebookSidebar = ({ activeSection = 'my-meetings', onSectionChange }: Not
               {dummyChannels.map((channel) => (
                 <button
                   key={channel.id}
-                  className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200 w-full"
+                  className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200 w-full cursor-pointer"
                 >
                   {channel.isPrivate ? (
                     <IconLock size={16} className="text-gray-400" />
@@ -102,7 +99,7 @@ const NotebookSidebar = ({ activeSection = 'my-meetings', onSectionChange }: Not
               ))}
               
               {/* Create Channel Button */}
-              <button className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-slate-600/70 transition-all duration-200 w-full mt-2">
+              <button className="flex items-center space-x-3 px-3 py-2 rounded-lg text-gray-400 hover:text-white hover:bg-slate-600/70 transition-all duration-200 w-full mt-2 cursor-pointer">
                 <IconPlus size={16} />
                 <span className="text-sm">Create</span>
               </button>
