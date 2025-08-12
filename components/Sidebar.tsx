@@ -12,19 +12,21 @@ import {
   IconHelp,
   IconDatabase
 } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Sidebar = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  
   const navigationItems = [
-    { icon: IconHome, label: 'Home', active: true, link: '/' },
-    { icon: IconCalendar, label: 'Meetings', link: '/meetings' },
-    { icon: IconUsers, label: 'Contacts', link: '/contacts' },
-    { icon: IconPuzzle, label: 'Integrations', badge: 'NEW', link: '/integrations' },
-    { icon: IconDatabase, label: 'AI Apps', link: '/ai-apps' },
-    { icon: IconChartBar, label: 'Analytics', link: '/analytics' },
-    { icon: IconUpload, label: 'Uploads', link: '/uploads' },
-    { icon: IconStar, label: 'Topic Tracker', link: '/topic-tracker' },
+    { icon: IconHome, label: 'Home', active: pathname === '/', link: '/' },
+    { icon: IconCalendar, label: 'Meetings', active: pathname.startsWith('/meetings'), link: '/meetings' },
+    { icon: IconUsers, label: 'Contacts', active: false, link: '/contacts' },
+    { icon: IconPuzzle, label: 'Integrations', badge: 'NEW', active: false, link: '/integrations' },
+    { icon: IconDatabase, label: 'AI Apps', active: false, link: '/ai-apps' },
+    { icon: IconChartBar, label: 'Analytics', active: false, link: '/analytics' },
+    { icon: IconUpload, label: 'Uploads', active: false, link: '/uploads' },
+    { icon: IconStar, label: 'Topic Tracker', active: false, link: '/topic-tracker' },
   ];
 
   const bottomItems = [

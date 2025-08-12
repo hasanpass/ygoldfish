@@ -13,7 +13,11 @@ import {
 } from '@tabler/icons-react';
 import { useState, useRef, useEffect } from 'react';
 
-const Header = () => {
+interface HeaderProps {
+  title?: string;
+}
+
+const Header = ({ title = "Home" }: HeaderProps) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -35,7 +39,7 @@ const Header = () => {
         {/* Left Section - Home Tab */}
         <div className="flex items-center">
           <button className="px-6 py-2.5 text-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-lg mr-4 transition-colors">
-            Home
+            {title}
           </button>
         </div>
 
