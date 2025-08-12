@@ -57,7 +57,7 @@ export default function AudioPlayer({ src, title = 'Meeting Audio' }: AudioPlaye
   // Clamp current time if duration updates smaller than value
   useEffect(() => {
     if (!Number.isFinite(duration)) return
-    if (currentTime > duration) setCurrentTime(duration || 0)
+    setCurrentTime((prev) => (prev > duration ? (duration || 0) : prev))
   }, [duration])
 
   const togglePlay = () => {
