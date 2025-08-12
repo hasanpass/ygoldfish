@@ -1,14 +1,34 @@
+"use client"
 import {
   IconSearch,
   IconBell,
   IconQuestionMark,
   IconMicrophone,
-  IconClock,
   IconDatabase,
-  IconPlus
+  IconPlus,
+  IconVideo,
+  IconCalendar,
+  IconUpload,
+  IconPlayerRecord
 } from '@tabler/icons-react';
+import { useState, useRef, useEffect } from 'react';
 
 const Header = () => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsDropdownOpen(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   return (
     <header className="bg-white border-b border-gray-100 px-4 lg:px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between gap-4">
@@ -34,7 +54,7 @@ const Header = () => {
         {/* Right Section - Action Buttons */}
         <div className="flex items-center space-x-2 lg:space-x-4">
           {/* Upgrade Button */}
-          <button className="px-4 py-2 bg-green-200 text-green-600 text-sm font-medium rounded-lg hover:bg-green-600 transition-colors">
+          <button className="px-4 py-2 bg-green-200 text-green-600 text-sm font-medium rounded-lg transition-colors">
             UPGRADE
           </button>
 
@@ -58,23 +78,55 @@ const Header = () => {
 
           {/* Action Buttons */}
           <div className="flex items-center space-x-2">
-            {/* Add to live meeting */}
-            <button className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:text-gray-900 transition-colors">
-              <IconPlus size={20} />
-            </button>
+            {/* Add to live meeting - Dropdown */}
+            <div className="relative" ref={dropdownRef}>
+              <button 
+                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:text-gray-900 transition-colors cursor-pointer"
+              >
+                <IconPlus size={20} />
+              </button>
+
+              {/* Dropdown Menu */}
+              {isDropdownOpen && (
+                <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-lg shadow-lg border border-gray-200 py-2 z-50">
+                  <div className="py-1">
+                    <button className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                      <IconVideo size={18} className="text-gray-600" />
+                      <span className="text-sm">Add to live meeting</span>
+                    </button>
+                    
+                    <button className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                      <IconCalendar size={18} className="text-gray-600" />
+                      <span className="text-sm">Schedule new meeting</span>
+                    </button>
+                    
+                    <button className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                      <IconUpload size={18} className="text-gray-600" />
+                      <span className="text-sm">Upload audio or video</span>
+                    </button>
+                    
+                    <button className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                      <IconPlayerRecord size={18} className="text-gray-600" />
+                      <span className="text-sm">Start recording</span>
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
 
             {/* Notification */}
-            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer">
               <IconBell size={20} />
             </button>
 
             {/* Help */}
-            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors">
+            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer">
               <IconQuestionMark size={20} />
             </button>
 
             {/* Profile */}
-            <button className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold">
+            <button className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold cursor-pointer">
               T
             </button>
           </div>
