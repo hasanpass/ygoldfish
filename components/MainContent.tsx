@@ -1,4 +1,4 @@
-import LeftColumn from './LeftColumn';
+import LeftColumn from '../../components/LeftColumn';
 import RightColumn from './RightColumn';
 
 const MainContent = () => {

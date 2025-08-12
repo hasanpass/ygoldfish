@@ -4,7 +4,8 @@ import {
   IconQuestionMark,
   IconMicrophone,
   IconClock,
-  IconDatabase
+  IconDatabase,
+  IconPlus
 } from '@tabler/icons-react';
 
 const Header = () => {
@@ -33,7 +34,7 @@ const Header = () => {
         {/* Right Section - Action Buttons */}
         <div className="flex items-center space-x-2 lg:space-x-4">
           {/* Upgrade Button */}
-          <button className="px-4 py-2 bg-green-500 text-white text-sm font-medium rounded-lg hover:bg-green-600 transition-colors">
+          <button className="px-4 py-2 bg-green-200 text-green-600 text-sm font-medium rounded-lg hover:bg-green-600 transition-colors">
             UPGRADE
           </button>
 
@@ -58,8 +59,8 @@ const Header = () => {
           {/* Action Buttons */}
           <div className="flex items-center space-x-2">
             {/* Add to live meeting */}
-            <button className="px-4 py-2 bg-purple-600 text-white text-sm font-medium rounded-lg hover:bg-purple-700 transition-colors">
-              📺 Add to live meeting
+            <button className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:text-gray-900 transition-colors">
+              <IconPlus size={20} />
             </button>
 
             {/* Notification */}
