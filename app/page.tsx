@@ -1,6 +1,6 @@
-import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
-import MainContent from '../components/MainContent';
+import Sidebar from '@/components/Sidebar';
+import Header from '@/components/Header';
+import MainContent from '@/components/MainContent';
 
 export default function Home() {
   return (
@@ -11,7 +11,7 @@ export default function Home() {
       {/* Main Content Area */}
       <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <Header />
+        <Header title="Home" />
         
         {/* Main Content */}
         <MainContent />

@@ -9,13 +9,31 @@ import {
   IconVideo,
   IconCalendar,
   IconUpload,
-  IconPlayerRecord
+  IconPlayerRecord,
+  IconMenu2
 } from '@tabler/icons-react';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, memo, useCallback } from 'react';
+import { HeaderProps } from '@/types';
 
-const Header = () => {
+const Header = memo<HeaderProps>(({ 
+  title = 'Home', 
+  showHamburger = false, 
+  onHamburgerHover 
+}) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const handleHamburgerMouseEnter = useCallback(() => {
+    onHamburgerHover?.(true);
+  }, [onHamburgerHover]);
+
+  const handleHamburgerMouseLeave = useCallback(() => {
+    onHamburgerHover?.(false);
+  }, [onHamburgerHover]);
+
+  const toggleDropdown = useCallback(() => {
+    setIsDropdownOpen(prev => !prev);
+  }, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -32,10 +50,19 @@ const Header = () => {
   return (
     <header className="bg-white border-b border-gray-100 px-4 lg:px-6 py-4 shadow-sm">
       <div className="flex items-center justify-between gap-4">
-        {/* Left Section - Home Tab */}
+        {/* Left Section - Hamburger + Dynamic Title Tab */}
         <div className="flex items-center">
+          {showHamburger && (
+            <button 
+              className="p-2 text-gray-600 hover:text-gray-900 transition-colors mr-2"
+              onMouseEnter={handleHamburgerMouseEnter}
+              onMouseLeave={handleHamburgerMouseLeave}
+            >
+              <IconMenu2 size={20} />
+            </button>
+          )}
           <button className="px-6 py-2.5 text-sm font-medium text-gray-900 bg-gray-50 hover:bg-gray-100 rounded-lg mr-4 transition-colors">
-            Home
+            {title}
           </button>
         </div>
 
@@ -81,7 +108,7 @@ const Header = () => {
             {/* Add to live meeting - Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button 
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onClick={toggleDropdown}
                 className="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:text-gray-900 transition-colors cursor-pointer"
               >
                 <IconPlus size={20} />
@@ -134,6 +161,8 @@ const Header = () => {
       </div>
     </header>
   );
-};
+});
+
+Header.displayName = 'Header';
 
 export default Header;
