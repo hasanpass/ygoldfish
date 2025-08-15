@@ -7,7 +7,7 @@ export const meetingsData: MeetingData[] = [
     host: 'Fred Fireflies',
     date: '2024-08-08T16:22:00Z',
     durationMinutes: 8,
-    overview: 'The "Fireflies AI Platform Quick Overview" presentation provided an engaging summary of the platform\'s core features and capabilities, focusing on enhancing meeting efficiency and collaboration. The meeting began with a welcome segment that showcased a dashboard displaying past meeting digests, upcoming attendance options, and language settings for transcription.',
+    overview: 'The "Fireflies AI Platform Quick Overview" presentation provided an engaging summary of the platform\'s core features and capabilities, focusing on enhancing meeting efficiency and collaboration. The meeting began with a welcome segment that showcased a dashboard displaying past meeting digests, upcoming attendance options, and language settings for transcription. The platform offers comprehensive meeting management tools including automatic transcription, smart note-taking, task generation, and team collaboration features. Users can access detailed analytics, customize their experience with various settings, and integrate with popular productivity tools. The system is designed to streamline the entire meeting lifecycle from preparation to follow-up, making it easier for teams to stay organized and productive. Advanced features include AI-powered insights, customizable workflows, and seamless integration with calendar applications. The platform also supports multiple languages and provides real-time collaboration tools for remote teams.',
     outline: [
       {
         id: 'o1',
@@ -38,6 +38,30 @@ export const meetingsData: MeetingData[] = [
         title: 'Analytics & Performance',
         timestamp: '07:45',
         duration: '0:37'
+      },
+      {
+        id: 'o6',
+        title: 'Integration & Settings',
+        timestamp: '08:22',
+        duration: '1:15'
+      },
+      {
+        id: 'o7',
+        title: 'Advanced Features Demo',
+        timestamp: '09:37',
+        duration: '2:30'
+      },
+      {
+        id: 'o8',
+        title: 'Q&A Session',
+        timestamp: '12:07',
+        duration: '3:45'
+      },
+      {
+        id: 'o9',
+        title: 'Next Steps & Resources',
+        timestamp: '15:52',
+        duration: '1:20'
       }
     ],
     chapters: [
@@ -75,6 +99,34 @@ export const meetingsData: MeetingData[] = [
         timestamp: '07:45',
         duration: '0:37',
         summary: 'Team management features and analytics provide insights into meeting productivity and performance metrics.'
+      },
+      {
+        id: 'c6',
+        title: 'Chapter 6: Integration Features',
+        timestamp: '08:22',
+        duration: '1:15',
+        summary: 'Seamless integration with popular tools like Slack, Zoom, and Google Calendar for enhanced workflow.'
+      },
+      {
+        id: 'c7',
+        title: 'Chapter 7: Advanced AI Features',
+        timestamp: '09:37',
+        duration: '2:30',
+        summary: 'Advanced AI capabilities including sentiment analysis, action item extraction, and intelligent summarization.'
+      },
+      {
+        id: 'c8',
+        title: 'Chapter 8: User Experience',
+        timestamp: '12:07',
+        duration: '3:45',
+        summary: 'In-depth discussion of user interface improvements, accessibility features, and mobile experience optimization.'
+      },
+      {
+        id: 'c9',
+        title: 'Chapter 9: Future Roadmap',
+        timestamp: '15:52',
+        duration: '1:20',
+        summary: 'Upcoming features, platform enhancements, and strategic direction for the next development cycle.'
       }
     ],
     transcript: [
@@ -119,6 +171,66 @@ export const meetingsData: MeetingData[] = [
         speaker: 'Krish Ramineni',
         timestamp: '07:45',
         text: 'Finally, our analytics dashboard provides deep insights into meeting productivity, helping teams understand their collaboration patterns and improve their meeting effectiveness over time.'
+      },
+      {
+        id: 't8',
+        speaker: 'Krish Ramineni',
+        timestamp: '08:22',
+        text: 'Let me show you our integration capabilities. We seamlessly connect with Slack, Zoom, Google Calendar, and many other popular tools. This ensures that Fireflies fits naturally into your existing workflow without requiring any major changes to how you work.'
+      },
+      {
+        id: 't9',
+        speaker: 'Krish Ramineni',
+        timestamp: '09:37',
+        text: 'Our advanced AI features include sentiment analysis to understand the emotional tone of meetings, automatic action item extraction that identifies tasks and assignments, and intelligent summarization that creates concise meeting recaps.'
+      },
+      {
+        id: 't10',
+        speaker: 'Krish Ramineni',
+        timestamp: '10:15',
+        text: 'The user experience has been a major focus for us. We\'ve implemented accessibility features, optimized the mobile experience, and created an intuitive interface that requires minimal training to use effectively.'
+      },
+      {
+        id: 't11',
+        speaker: 'Krish Ramineni',
+        timestamp: '11:30',
+        text: 'Looking ahead, we\'re excited about our roadmap. We\'re working on real-time collaboration features, enhanced analytics, and deeper integrations with enterprise tools. We\'re also developing AI-powered meeting preparation tools.'
+      },
+      {
+        id: 't12',
+        speaker: 'Krish Ramineni',
+        timestamp: '12:07',
+        text: 'Now let\'s open the floor for questions. I want to make sure we address any concerns you might have about implementing Fireflies in your organization or how it can specifically benefit your team\'s workflow.'
+      },
+      {
+        id: 't13',
+        speaker: 'Sarah Manager',
+        timestamp: '12:45',
+        text: 'Thanks Krish, this looks really comprehensive. I\'m particularly interested in the security features. Can you tell us more about data privacy and compliance?'
+      },
+      {
+        id: 't14',
+        speaker: 'Krish Ramineni',
+        timestamp: '13:20',
+        text: 'Great question Sarah. We take security very seriously. All data is encrypted in transit and at rest, we\'re SOC 2 compliant, and we offer enterprise-grade security features including SSO integration and detailed audit logs.'
+      },
+      {
+        id: 't15',
+        speaker: 'Mike Developer',
+        timestamp: '14:10',
+        text: 'What about API access? We\'d like to integrate some of this data into our internal dashboards.'
+      },
+      {
+        id: 't16',
+        speaker: 'Krish Ramineni',
+        timestamp: '14:45',
+        text: 'Absolutely Mike. We provide a comprehensive REST API that allows you to access all meeting data, analytics, and insights. We also offer webhooks for real-time notifications and SDKs for popular programming languages.'
+      },
+      {
+        id: 't17',
+        speaker: 'Krish Ramineni',
+        timestamp: '15:52',
+        text: 'Thank you everyone for your great questions. To get started, you can visit our documentation at docs.fireflies.ai, and our support team is available 24/7 to help with implementation. We also offer personalized onboarding sessions.'
       }
     ]
   },

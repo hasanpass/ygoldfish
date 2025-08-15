@@ -9,7 +9,7 @@ const Sidebar = memo<SidebarProps>(({ collapsed = false }) => {
   const pathname = usePathname();
 
   return (
-    <div className={`${collapsed ? 'w-16' : 'w-64'} bg-[#475569] flex flex-col py-6 border-r border-slate-600 min-h-screen transition-all duration-300`}>
+    <div className={`${collapsed ? 'w-20' : 'w-64'} bg-[#475569] flex flex-col py-6 border-r border-slate-600 min-h-screen transition-all duration-300`}>
       {/* Logo */}
       <div className="mb-8 px-6">
         <div className="flex items-center space-x-3">
@@ -62,20 +62,6 @@ const Sidebar = memo<SidebarProps>(({ collapsed = false }) => {
           </button>
         ))}
       </div>
-
-      {/* Referral Badge */}
-      {!collapsed && (
-        <div className="px-4">
-          <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-4 text-center shadow-lg">
-            <div className="text-white text-lg mb-1">🎯🎊</div>
-            <div className="text-white text-sm font-bold mb-2">Refer and get $5</div>
-            <div className="text-white text-xs mb-3 leading-relaxed">Get $5 when someone signs up using your referral link</div>
-            <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold w-full transition-colors shadow-sm">
-              Refer
-            </button>
-          </div>
-        </div>
-      )}
     </div>
   );
 });

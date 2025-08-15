@@ -2,7 +2,7 @@
 import { useState, useCallback } from 'react';
 import Header from '@/components/Header';
 import HoverSidebar from '@/components/HoverSidebar';
-import MeetingDetail from '@/components/MeetingDetail';
+import EnhancedMeetingDetail from '@/components/EnhancedMeetingDetail';
 import { MeetingData } from '@/types';
 
 interface MeetingDetailPageClientProps {
@@ -43,7 +43,7 @@ export function MeetingDetailPageClient({ meeting }: MeetingDetailPageClientProp
 
         {/* Full width meeting detail */}
         <div className="flex-1 flex flex-col min-w-0">
-          <MeetingDetail meeting={meeting} />
+          <EnhancedMeetingDetail meeting={meeting} />
         </div>
       </div>
     </div>

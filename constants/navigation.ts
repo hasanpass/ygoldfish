@@ -29,6 +29,6 @@ export const BOTTOM_NAVIGATION_ITEMS: NavigationItem[] = [
 ];
 
 export const ICON_SIZES = {
-  COLLAPSED: 32,
+  COLLAPSED: 24,
   EXPANDED: 20,
 } as const;
