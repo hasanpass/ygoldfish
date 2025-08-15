@@ -42,7 +42,7 @@ export function MeetingDetailPageClient({ meeting }: MeetingDetailPageClientProp
         />
 
         {/* Full width meeting detail */}
-        <div className="flex-1 flex flex-col min-w-0">
+        <div className="flex-1 min-w-0">
           <EnhancedMeetingDetail meeting={meeting} />
         </div>
       </div>

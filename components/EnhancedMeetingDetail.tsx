@@ -4,25 +4,14 @@ import {
   User, 
   Calendar, 
   Video,
-  Volume2,
   Download,
   Share,
   Bookmark,
   Search,
-  Play,
-  Pause,
-  SkipForward,
-  SkipBack,
-  Star,
-  Check,
-  ThumbsUp,
-  ChevronUp,
-  ChevronDown,
-  Maximize2,
-  Minimize2,
   MoreVertical,
   Tag
 } from 'lucide-react';
+import MiniMusicPlayer from './MiniMusicPlayer';
 
 interface MeetingData {
   id: string;
@@ -85,10 +74,9 @@ const EnhancedMeetingDetail = memo<EnhancedMeetingDetailProps>(({ meeting }) => 
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
   const [duration] = useState(meeting.durationMinutes * 60);
-  const [playbackSpeed, setPlaybackSpeed] = useState(1);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [highlightedTranscriptId, setHighlightedTranscriptId] = useState<string | null>(null);
-  const [isPlayerCollapsed, setIsPlayerCollapsed] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
   
   const leftScrollRef = useRef(null);
@@ -144,10 +132,10 @@ const EnhancedMeetingDetail = memo<EnhancedMeetingDetailProps>(({ meeting }) => 
     item.speaker.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const progress = (currentTime / duration) * 100;
+
 
   return (
-    <div className="h-screen flex flex-col bg-gray-50">
+    <div className="meeting-detail-container bg-gray-50">
       {/* Enhanced Header */}
       <div className="bg-white border-b border-gray-200 px-6 py-4 flex-shrink-0">
         <div className="flex items-center justify-between mb-4">
@@ -199,7 +187,7 @@ const EnhancedMeetingDetail = memo<EnhancedMeetingDetailProps>(({ meeting }) => 
       </div>
 
       {/* Main Content */}
-      <div className={`flex-1 flex overflow-hidden ${isPlayerCollapsed ? 'pb-16' : 'pb-32'} transition-all duration-300`}>
+      <div className="meeting-content-wrapper flex">
         {/* Left Panel */}
         <div className="w-1/2 bg-white border-r border-gray-200 flex flex-col">
           {/* Tabs */}
@@ -352,108 +340,16 @@ const EnhancedMeetingDetail = memo<EnhancedMeetingDetailProps>(({ meeting }) => 
         </div>
       </div>
 
-      {/* Enhanced Media Player */}
-      <div className={`fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg z-50 transition-all duration-300 ${isPlayerCollapsed ? 'h-16' : 'h-32'}`}>
-        {/* Progress Bar - Always visible */}
-        <div className="absolute top-0 left-0 right-0 h-1">
-          <div className="relative h-full bg-gray-200">
-            <div 
-              className="absolute top-0 left-0 h-full bg-gradient-to-r from-blue-500 to-purple-500 transition-all duration-300"
-              style={{ width: `${progress}%` }}
-            />
-          </div>
-        </div>
-
-        {/* Collapse/Expand Button */}
-        <button
-          onClick={() => setIsPlayerCollapsed(!isPlayerCollapsed)}
-          className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-white border border-gray-200 rounded-full p-1 shadow-md hover:shadow-lg transition-shadow"
-        >
-          {isPlayerCollapsed ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </button>
-
-        <div className="px-6 py-4">
-          {/* Collapsed View */}
-          {isPlayerCollapsed ? (
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <button 
-                  onClick={handlePlayPause}
-                  className="p-2 bg-blue-500 text-white rounded-full hover:bg-blue-600 transition-colors"
-                >
-                  {isPlaying ? <Pause size={18} /> : <Play size={18} />}
-                </button>
-                <div className="text-lg font-mono font-semibold text-gray-900">
-                  {formatTime(currentTime)} / {formatTime(duration)}
-                </div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100">
-                  <Star size={16} />
-                </button>
-                <button className="p-2 text-gray-500 hover:text-gray-700 rounded-full hover:bg-gray-100">
-                  <ThumbsUp size={16} />
-                </button>
-              </div>
-            </div>
-          ) : (
-            /* Expanded View */
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <div className="text-2xl font-mono font-semibold text-gray-900">
-                  {formatTime(currentTime)}
-                </div>
-                <div className="text-lg text-gray-500">
-                  / {formatTime(duration)}
-                </div>
-              </div>
-
-              <div className="flex items-center justify-center gap-6">
-                <button className="px-3 py-1 text-sm text-gray-700 bg-gray-100 hover:bg-gray-200 rounded-md transition-colors">
-                  {playbackSpeed}x
-                </button>
-                
-                <button 
-                  onClick={handleSkipBack}
-                  className="p-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  <SkipBack size={20} />
-                </button>
-                
-                <button 
-                  onClick={handlePlayPause}
-                  className="p-4 bg-gradient-to-r from-blue-500 to-purple-500 text-white rounded-full hover:from-blue-600 hover:to-purple-600 transition-all shadow-lg hover:shadow-xl transform hover:scale-105 music-player-glow"
-                >
-                  {isPlaying ? <Pause size={24} /> : <Play size={24} />}
-                </button>
-                
-                <button 
-                  onClick={handleSkipForward}
-                  className="p-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors"
-                >
-                  <SkipForward size={20} />
-                </button>
-                
-                <button className="p-2 text-gray-600 hover:text-gray-900 rounded-full hover:bg-gray-100 transition-colors">
-                  <Download size={20} />
-                </button>
-              </div>
-
-              <div className="flex items-center justify-center gap-4">
-                <button className="p-2 text-gray-500 hover:text-yellow-500 rounded-full hover:bg-gray-100 transition-colors">
-                  <Star size={18} />
-                </button>
-                <button className="p-2 text-gray-500 hover:text-green-500 rounded-full hover:bg-gray-100 transition-colors">
-                  <Check size={18} />
-                </button>
-                <button className="p-2 text-gray-500 hover:text-blue-500 rounded-full hover:bg-gray-100 transition-colors">
-                  <ThumbsUp size={18} />
-                </button>
-              </div>
-            </div>
-          )}
-        </div>
-      </div>
+      {/* Mini Music Player */}
+      <MiniMusicPlayer
+        isPlaying={isPlaying}
+        currentTime={currentTime}
+        duration={duration}
+        onPlayPause={handlePlayPause}
+        onSeek={handleSeek}
+        onSkipForward={handleSkipForward}
+        onSkipBack={handleSkipBack}
+      />
     </div>
   );
 });
