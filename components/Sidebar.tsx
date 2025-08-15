@@ -8,23 +8,23 @@ import {
   IconChartBar,
   IconUpload,
   IconStar,
-  IconShield,
-  IconHelp,
   IconDatabase
 } from '@tabler/icons-react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const Sidebar = () => {
   const router = useRouter();
+  const pathname = usePathname();
+  
   const navigationItems = [
-    { icon: IconHome, label: 'Home', active: true, link: '/' },
-    { icon: IconCalendar, label: 'Meetings', link: '/meetings' },
-    { icon: IconUsers, label: 'Contacts', link: '/contacts' },
-    { icon: IconPuzzle, label: 'Integrations', badge: 'NEW', link: '/integrations' },
-    { icon: IconDatabase, label: 'AI Apps', link: '/ai-apps' },
-    { icon: IconChartBar, label: 'Analytics', link: '/analytics' },
-    { icon: IconUpload, label: 'Uploads', link: '/uploads' },
-    { icon: IconStar, label: 'Topic Tracker', link: '/topic-tracker' },
+    { icon: IconHome, label: 'Home', active: pathname === '/', link: '/' },
+    { icon: IconCalendar, label: 'Meetings', active: pathname.startsWith('/meetings'), link: '/meetings' },
+    { icon: IconUsers, label: 'Contacts', active: false, link: '/contacts' },
+    { icon: IconPuzzle, label: 'Integrations', badge: 'NEW', active: false, link: '/integrations' },
+    { icon: IconDatabase, label: 'AI Apps', active: false, link: '/ai-apps' },
+    { icon: IconChartBar, label: 'Analytics', active: false, link: '/analytics' },
+    { icon: IconUpload, label: 'Uploads', active: false, link: '/uploads' },
+    { icon: IconStar, label: 'Topic Tracker', active: false, link: '/topic-tracker' },
   ];
 
   const bottomItems = [
@@ -50,7 +50,7 @@ const Sidebar = () => {
         {navigationItems.map((item, index) => (
           <button
             key={index}
-            className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 relative ${
+            className={`flex items-center space-x-3 px-3 py-3 rounded-lg transition-all duration-200 relative cursor-pointer ${
               item.active
                 ? 'bg-blue-600 text-white shadow-lg'
                 : 'text-gray-300 hover:text-white hover:bg-slate-600/70'
@@ -72,24 +72,12 @@ const Sidebar = () => {
         {bottomItems.map((item, index) => (
           <button
             key={index}
-            className="flex items-center space-x-3 px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200"
+            className="flex items-center space-x-3 px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200 cursor-pointer"
           >
             <item.icon size={20} />
             <span className="text-sm font-medium">{item.label}</span>
           </button>
         ))}
-      </div>
-
-      {/* Referral Badge */}
-      <div className="px-4">
-        <div className="bg-gradient-to-br from-orange-400 to-orange-600 rounded-lg p-4 text-center shadow-lg">
-          <div className="text-white text-lg mb-1">🎯🎊</div>
-          <div className="text-white text-sm font-bold mb-2">Refer and get $5</div>
-          <div className="text-white text-xs mb-3 leading-relaxed">Get $5 when someone signs up using your referral link</div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg font-semibold w-full transition-colors shadow-sm">
-            Refer
-          </button>
-        </div>
       </div>
     </div>
   );

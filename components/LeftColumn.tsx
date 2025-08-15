@@ -92,7 +92,7 @@ const LeftColumn = () => {
                     <span className="text-orange-600 text-xs">🤝</span>
                   </div>
                   <span className="text-sm text-gray-700 leading-relaxed">
-                    <span className="font-medium">Collaboration Tools:</span> Tools like 'Ask Fred' and soundbite creation enhance team collaboration.
+                    <span className="font-medium">Collaboration Tools:</span> Tools like &apos;Ask Fred&apos; and soundbite creation enhance team collaboration.
                   </span>
                 </div>
                 
