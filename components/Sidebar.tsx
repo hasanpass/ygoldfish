@@ -8,7 +8,8 @@ import {
   IconChartBar,
   IconUpload,
   IconStar,
-  IconDatabase
+  IconDatabase,
+  IconNotebook
 } from '@tabler/icons-react';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -19,6 +20,7 @@ const Sidebar = () => {
   const navigationItems = [
     { icon: IconHome, label: 'Home', active: pathname === '/', link: '/' },
     { icon: IconCalendar, label: 'Meetings', active: pathname.startsWith('/meetings'), link: '/meetings' },
+    { icon: IconNotebook, label: 'Meeting Status', active: pathname === '/meeting-status', link: '/meeting-status' },
     { icon: IconUsers, label: 'Contacts', active: false, link: '/contacts' },
     { icon: IconPuzzle, label: 'Integrations', badge: 'NEW', active: false, link: '/integrations' },
     { icon: IconDatabase, label: 'AI Apps', active: false, link: '/ai-apps' },
@@ -29,7 +31,7 @@ const Sidebar = () => {
 
   const bottomItems = [
     { icon: IconUsers, label: 'Team', link: '/team' },
-    { icon: IconStar, label: 'Upgrade', link: '/upgrade' },
+    { icon: IconStar, label: 'Upgrade', link: '/upgrade', badge: 'PRO' },
     { icon: IconSettings, label: 'Settings', link: '/settings' },
   ];
 
@@ -73,9 +75,15 @@ const Sidebar = () => {
           <button
             key={index}
             className="flex items-center space-x-3 px-3 py-3 rounded-lg text-gray-300 hover:text-white hover:bg-slate-600/70 transition-all duration-200 cursor-pointer"
+            onClick={() => router.push(item.link)}
           >
             <item.icon size={20} />
             <span className="text-sm font-medium">{item.label}</span>
+            {item.badge && (
+              <span className="ml-auto bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs px-2 py-0.5 rounded-full font-semibold shadow-lg">
+                {item.badge}
+              </span>
+            )}
           </button>
         ))}
       </div>

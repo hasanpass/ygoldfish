@@ -36,6 +36,45 @@ export interface TranscriptSegment {
   text: string;
 }
 
+export interface Contact {
+  id: string;
+  name: string;
+  role: string;
+  company: string;
+  email?: string;
+  phone?: string;
+}
+
+export interface IntegrationApp {
+  id: string;
+  name: string;
+  status: 'Connected' | 'Disconnected';
+}
+
+export interface AiApp {
+  id: string;
+  name: string;
+  status: 'Enabled' | 'Disabled';
+}
+
+export interface AnalyticsReport {
+  id: string;
+  name: string;
+  desc: string;
+}
+
+export interface UploadItem {
+  id: string;
+  name: string;
+  status: 'Processed' | 'Queued' | 'Failed';
+}
+
+export interface TopicItem {
+  id: string;
+  name: string;
+  trend: 'Rising' | 'Stable' | 'Falling';
+}
+
 export const dummyMeetings: Meeting[] = [
   {
     id: "fireflies-ai-overview",
@@ -370,4 +409,42 @@ export const dummyChannels: Channel[] = [
     isPrivate: true,
     lastActivity: "3 days ago"
   }
+];
+
+export const dummyContacts: Contact[] = [
+  { id: 'c-1', name: 'Alice Johnson', role: 'Product Manager', company: 'Acme Co.', email: 'alice@acme.co' },
+  { id: 'c-2', name: 'Samir Patel', role: 'Designer', company: 'DesignHub', email: 'samir@designhub.io' },
+  { id: 'c-3', name: 'Jin Park', role: 'Engineer', company: 'TechFlow', email: 'jin@techflow.dev' },
+  { id: 'c-4', name: 'Priya Singh', role: 'Sales Lead', company: 'Globex', email: 'priya@globex.com' }
+];
+
+export const dummyIntegrationApps: IntegrationApp[] = [
+  { id: 'google-calendar', name: 'Google Calendar', status: 'Connected' },
+  { id: 'slack', name: 'Slack', status: 'Disconnected' },
+  { id: 'notion', name: 'Notion', status: 'Connected' },
+  { id: 'hubspot', name: 'HubSpot', status: 'Disconnected' }
+];
+
+export const dummyAiApps: AiApp[] = [
+  { id: 'summarizer', name: 'Meeting Summarizer', status: 'Enabled' },
+  { id: 'action-items', name: 'Action Items', status: 'Enabled' },
+  { id: 'topic-trends', name: 'Topic Trends', status: 'Disabled' }
+];
+
+export const dummyAnalyticsReports: AnalyticsReport[] = [
+  { id: 'r-1', name: 'Weekly Activity', desc: 'Meetings, participants, durations' },
+  { id: 'r-2', name: 'Action Items Trend', desc: 'Completed vs pending tasks' },
+  { id: 'r-3', name: 'Topics Heatmap', desc: 'Top discussed topics' }
+];
+
+export const dummyUploadItems: UploadItem[] = [
+  { id: 'u-1', name: 'Sales_Call_0808.mp4', status: 'Processed' },
+  { id: 'u-2', name: 'Demo_Audio_Clip.wav', status: 'Queued' },
+  { id: 'u-3', name: 'Team_Meeting_Notes.m4a', status: 'Processed' }
+];
+
+export const dummyTopics: TopicItem[] = [
+  { id: 't-1', name: 'Pricing', trend: 'Rising' },
+  { id: 't-2', name: 'Onboarding', trend: 'Stable' },
+  { id: 't-3', name: 'Performance', trend: 'Falling' }
 ];

@@ -9,9 +9,29 @@ import {
   IconVideo,
   IconCalendar,
   IconUpload,
-  IconPlayerRecord
+  IconPlayerRecord,
+  IconUser,
+  IconSettings,
+  IconCreditCard,
+  IconHelpCircle,
+  IconLogout,
+  IconChecks,
+  IconBook,
+  IconKeyboard,
+  IconMessage,
+  IconBug,
+  IconGift,
+  IconExternalLink
 } from '@tabler/icons-react';
 import { useState, useRef, useEffect } from 'react';
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from '@/components/ui/dropdown-menu';
 
 interface HeaderProps {
   title?: string;
@@ -119,20 +139,133 @@ const Header = ({ title = "Home" }: HeaderProps) => {
               )}
             </div>
 
-            {/* Notification */}
-            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer">
-              <IconBell size={20} />
-            </button>
+            {/* Notifications */}
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="relative p-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer rounded-md">
+                  <IconBell size={20} />
+                  <span className="absolute -top-0.5 -right-0.5 h-2.5 w-2.5 rounded-full bg-red-500 ring-2 ring-white" />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-80">
+                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem className="items-start">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 inline-block h-2 w-2 rounded-full bg-blue-500"></span>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-900">Your meeting "Q3 Planning" starts in 10 minutes.</p>
+                      <p className="text-xs text-gray-500 mt-1">2m ago</p>
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuItem className="items-start">
+                  <div className="flex items-start gap-3">
+                    <span className="mt-0.5 inline-block h-2 w-2 rounded-full bg-green-500"></span>
+                    <div className="flex-1">
+                      <p className="text-sm text-gray-900">Transcription finished for "All Hands".</p>
+                      <p className="text-xs text-gray-500 mt-1">25m ago</p>
+                    </div>
+                  </div>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <IconChecks className="text-gray-500" size={18} />
+                  <span>Mark all as read</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <span className="text-blue-600">View all notifications</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Help */}
-            <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer">
-              <IconQuestionMark size={20} />
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="p-2 text-gray-600 hover:text-gray-900 transition-colors cursor-pointer rounded-md">
+                  <IconQuestionMark size={20} />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72">
+                <DropdownMenuLabel>Help & Resources</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <IconBook size={18} />
+                  <span>Documentation</span>
+                  <span className="ml-auto text-xs text-gray-400 flex items-center gap-1">
+                    docs
+                    <IconExternalLink size={14} />
+                  </span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconKeyboard size={18} />
+                  <span>Keyboard shortcuts</span>
+                  <span className="ml-auto text-xs text-gray-400">?</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconGift size={18} />
+                  <span>What’s new</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconHelpCircle size={18} />
+                  <span>Community forum</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <IconMessage size={18} />
+                  <span>Contact support</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconBug size={18} />
+                  <span>Report a bug</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <IconHelpCircle size={18} />
+                  <span>Professional support</span>
+                  <span className="ml-auto text-[10px] px-1.5 py-0.5 rounded bg-gray-100 text-gray-600">Priority</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Profile */}
-            <button className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold cursor-pointer">
-              T
-            </button>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button className="w-8 h-8 bg-blue-600 text-white rounded-full flex items-center justify-center text-sm font-semibold cursor-pointer">
+                  T
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-56">
+                <DropdownMenuLabel>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-medium text-gray-900">Tanvir</span>
+                    <span className="text-xs text-gray-500">tanvir@example.com</span>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <IconUser size={18} />
+                  <span>Profile</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconSettings size={18} />
+                  <span>Settings</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconCreditCard size={18} />
+                  <span>Billing</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <IconHelpCircle size={18} />
+                  <span>Support</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem variant="destructive">
+                  <IconLogout size={18} />
+                  <span>Sign out</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </div>
         </div>
       </div>
